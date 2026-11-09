@@ -1,0 +1,87 @@
+<Window x:Class="SchoolDatabaseDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Училищна база данни – SchoolDatabaseDemo"
+        Height="560" Width="820" MinHeight="480" MinWidth="720"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Урок 11: бутони за базата -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button x:Name="CreateDatabaseButton" Content="Създай база"
+                    Click="CreateDatabaseButton_Click" Padding="12,4" Margin="0,0,8,0"/>
+            <Button x:Name="CheckDatabaseButton" Content="Провери база"
+                    Click="CheckDatabaseButton_Click" Padding="12,4"/>
+        </StackPanel>
+
+        <!-- Урок 12: полета -->
+        <Grid Grid.Row="1" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Име:" VerticalAlignment="Center" Margin="0,0,8,6"/>
+            <TextBox x:Name="NameBox" Grid.Row="0" Grid.Column="1" Margin="0,0,16,6" Padding="2"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="Клас:" VerticalAlignment="Center" Margin="0,0,8,6"/>
+            <TextBox x:Name="ClassBox" Grid.Row="0" Grid.Column="3" Margin="0,0,0,6" Padding="2"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Оценка:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBox x:Name="GradeBox" Grid.Row="1" Grid.Column="1" Margin="0,0,16,0" Padding="2"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="Имейл:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBox x:Name="EmailBox" Grid.Row="1" Grid.Column="3" Padding="2"/>
+        </Grid>
+
+        <!-- Урок 12: CRUD бутони -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,8">
+            <Button x:Name="AddButton" Content="Добави" Click="AddButton_Click" Padding="14,4" Margin="0,0,8,0"/>
+            <Button x:Name="UpdateButton" Content="Обнови" Click="UpdateButton_Click" Padding="14,4" Margin="0,0,8,0" IsEnabled="False"/>
+            <Button x:Name="DeleteButton" Content="Изтрий" Click="DeleteButton_Click" Padding="14,4" Margin="0,0,8,0" IsEnabled="False"/>
+            <Button x:Name="ClearButton" Content="Изчисти полетата" Click="ClearButton_Click" Padding="14,4"/>
+        </StackPanel>
+
+        <!-- Търсене по име -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,8">
+            <TextBlock Text="Търсене по име:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBox x:Name="SearchBox" Width="220" Padding="2" TextChanged="SearchBox_TextChanged"/>
+        </StackPanel>
+
+        <DataGrid x:Name="StudentsGrid" Grid.Row="4"
+                  AutoGenerateColumns="False" IsReadOnly="True"
+                  SelectionMode="Single" SelectionUnit="FullRow"
+                  CanUserAddRows="False" HeadersVisibility="Column"
+                  SelectionChanged="StudentsGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Име" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Клас" Binding="{Binding ClassName}" Width="80"/>
+                <DataGridTextColumn Header="Оценка" Binding="{Binding AverageGrade, StringFormat=N2}" Width="80"/>
+                <DataGridTextColumn Header="Имейл" Binding="{Binding Email}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Статус и брой записи -->
+        <Grid Grid.Row="5" Margin="0,8,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="StatusTextBlock" Grid.Column="0" TextWrapping="Wrap"/>
+            <TextBlock x:Name="CountTextBlock" Grid.Column="1" FontWeight="SemiBold" Margin="12,0,0,0"/>
+        </Grid>
+    </Grid>
+</Window>
